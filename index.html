@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R. Shankarnarayanan | QA Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #112240;
+      --navy-light: #1e3a5f;
+      --gold: #c9a84c;
+      --gold-light: #e8c96a;
+      --white: #f4f1eb;
+      --gray: #8a97a8;
+      --accent: #4a90c4;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10, 22, 40, 0.95);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 70% at 70% 40%, rgba(74, 144, 196, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201, 168, 76, 0.06) 0%, transparent 50%),
+        linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.03;
+      background-image: linear-gradient(var(--white) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--white) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; max-width: 700px; }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      padding: 0.4rem 1.2rem;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.6s 0.15s ease both;
+    }
+    .hero-name span { color: var(--gold); }
+    .hero-title {
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      animation: fadeUp 0.6s 0.25s ease both;
+    }
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 550px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.35s ease both;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.45s ease both;
+    }
+    .btn {
+      padding: 0.85rem 2rem;
+      font-size: 0.85rem;
+      font-family: 'Source Sans 3', sans-serif;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(244, 241, 235, 0.3);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stats {
+      position: absolute; right: 4rem; bottom: 3rem;
+      display: flex; gap: 3rem;
+      animation: fadeUp 0.6s 0.55s ease both;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 4rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 3.5rem; }
+    .section-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .section-title .accent { color: var(--gold); }
+    .divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-top: 1.2rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--navy-mid); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 2.5rem;
+    }
+    .about-detail {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .about-detail:last-child { border-bottom: none; }
+    .detail-icon { color: var(--gold); font-size: 1rem; margin-top: 3px; min-width: 18px; }
+    .detail-label { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
+    .detail-value { font-size: 0.95rem; color: var(--white); }
+    .about-text p { margin-bottom: 1.2rem; color: rgba(244,241,235,0.8); font-size: 0.95rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--navy); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-category {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .skill-category:hover {
+      border-color: rgba(201, 168, 76, 0.4);
+      transform: translateY(-3px);
+    }
+    .skill-cat-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .skill-cat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(74, 144, 196, 0.1);
+      border: 1px solid rgba(74, 144, 196, 0.25);
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .skill-tag.gold {
+      background: rgba(201, 168, 76, 0.1);
+      border-color: rgba(201, 168, 76, 0.25);
+      color: var(--gold);
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--navy-mid); }
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3.5rem;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -2.5rem;
+      top: 0.3rem;
+      width: 11px; height: 11px;
+      background: var(--gold);
+      border-radius: 50%;
+      transform: translateX(calc(-50% + 0.5px));
+    }
+    .timeline-header { margin-bottom: 0.8rem; }
+    .timeline-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .timeline-company { font-size: 0.9rem; color: var(--accent); font-weight: 600; margin: 0.2rem 0; }
+    .timeline-project { font-size: 0.8rem; color: var(--gold); margin-bottom: 0.3rem; }
+    .timeline-period {
+      font-size: 0.75rem;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: rgba(244,241,235,0.7);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .timeline-responsibilities {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .timeline-responsibilities li {
+      font-size: 0.85rem;
+      color: rgba(244,241,235,0.65);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .timeline-responsibilities li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+    .timeline-tools {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--gray);
+    }
+    .timeline-tools strong { color: var(--gold); }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background: var(--navy); }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .portfolio-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .portfolio-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .portfolio-card:hover::before { transform: scaleX(1); }
+    .portfolio-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .portfolio-client {
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+    .portfolio-desc { font-size: 0.88rem; color: rgba(244,241,235,0.65); line-height: 1.6; }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--navy-mid); }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .edu-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 2rem;
+      position: relative;
+    }
+    .edu-year {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .cert-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 0; }
+    .cert-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 1.5rem;
+      background: rgba(255,255,255,0.025);
+      border-left: 3px solid var(--gold);
+    }
+    .cert-icon { font-size: 1.4rem; }
+    .cert-name { font-size: 0.92rem; font-weight: 600; }
+    .cert-org { font-size: 0.78rem; color: var(--gray); margin-top: 0.2rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--navy); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info p {
+      color: rgba(244,241,235,0.7);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .contact-icon-wrap {
+      width: 46px; height: 46px;
+      background: rgba(201, 168, 76, 0.1);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .contact-detail-label { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
+    .contact-detail-value { font-size: 0.95rem; color: var(--white); }
+    .contact-detail-value a { color: var(--white); text-decoration: none; }
+    .contact-detail-value a:hover { color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2rem 4rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    footer span { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 8rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-stats { position: static; margin-top: 3rem; justify-content: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">R.S.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">QA Engineering Professional</div>
+    <h1 class="hero-name">R. <span>Shankar</span>narayanan</h1>
+    <div class="hero-title">Lead QA &amp; Automation Engineer</div>
+    <p class="hero-tagline">12+ years delivering quality across ERP, Financial and eCommerce platforms — from manual testing to full automation frameworks.</p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">View Experience</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Years Exp.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Companies</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Certs</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-tag">Who I Am</span>
+      <h2 class="section-title">About <span class="accent">Me</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <div class="about-detail">
+          <span class="detail-icon">👤</span>
+          <div>
+            <div class="detail-label">Full Name</div>
+            <div class="detail-value">R. Shankarnarayanan</div>
+          </div>
+        </div>
+        <div class="about-detail">
+          <span class="detail-icon">💼</span>
+          <div>
+            <div class="detail-label">Role</div>
+            <div class="detail-value">Lead QA / Automation Engineer</div>
+          </div>
+        </div>
+        <div class="about-detail">
+          <span class="detail-icon">🌐</span>
+          <div>
+            <div class="detail-label">Domains</div>
+            <div class="detail-value">ERP · Financial · eCommerce</div>
+          </div>
+        </div>
+        <div class="about-detail">
+          <span class="detail-icon">📧</span>
+          <div>
+            <div class="detail-label">Email</div>
+            <div class="detail-value">shankarsqM@gmail.com</div>
+          </div>
+        </div>
+        <div class="about-detail">
+          <span class="detail-icon">📞</span>
+          <div>
+            <div class="detail-label">Phone</div>
+            <div class="detail-value">+91 97913 84762</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p>I am a seasoned QA professional with over 12 years of experience in testing multi-tier web applications across desktop and mobile platforms. My expertise spans the full QA lifecycle — from crafting detailed test strategies and test cases to building robust automation frameworks.</p>
+        <p>I have strong hands-on experience automating web application testing using <strong>Selenium WebDriver</strong> with <strong>TestNG</strong>, and proficiency in web services and API testing with <strong>SoapUI</strong> and <strong>Postman</strong>. I have worked with global clients including Experian (UK) and H&R Block (USA), gaining direct on-site exposure to international delivery standards.</p>
+        <p>My analytical mindset, strong communication skills, and expertise in defect life-cycle management using tools like <strong>JIRA</strong>, <strong>Shortcut</strong>, and <strong>HP ALM</strong> make me a valuable asset to any software delivery team.</p>
+        <p>I hold certifications from <strong>ISTQB India</strong> and <strong>QAI India</strong>, validating my depth of knowledge in software testing best practices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-tag">What I Do</span>
+      <h2 class="section-title">Skills &amp; <span class="accent">Expertise</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">⚙️</div>
+        <div class="skill-cat-title">Test Automation</div>
+        <div class="skill-tags">
+          <span class="skill-tag gold">Selenium WebDriver</span>
+          <span class="skill-tag gold">TestNG</span>
+          <span class="skill-tag gold">Page Object Model</span>
+          <span class="skill-tag">C#</span>
+          <span class="skill-tag">Java</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">🔗</div>
+        <div class="skill-cat-title">API &amp; Web Services</div>
+        <div class="skill-tags">
+          <span class="skill-tag gold">Postman</span>
+          <span class="skill-tag gold">SoapUI / SoapUI Pro</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">WCF</span>
+          <span class="skill-tag">Web API</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">🧪</div>
+        <div class="skill-cat-title">Testing Types</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Functional Testing</span>
+          <span class="skill-tag">Regression Testing</span>
+          <span class="skill-tag">Integration Testing</span>
+          <span class="skill-tag">Database Testing</span>
+          <span class="skill-tag">Cross-Browser Testing</span>
+          <span class="skill-tag">Data-Driven Testing</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">📋</div>
+        <div class="skill-cat-title">Test Management</div>
+        <div class="skill-tags">
+          <span class="skill-tag gold">JIRA</span>
+          <span class="skill-tag gold">HP ALM / QC</span>
+          <span class="skill-tag">Shortcut</span>
+          <span class="skill-tag">TFS</span>
+          <span class="skill-tag">BrowserStack</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">🗄️</div>
+        <div class="skill-cat-title">Technologies</div>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL Server</span>
+          <span class="skill-tag">ASP.NET</span>
+          <span class="skill-tag">LINQ</span>
+          <span class="skill-tag">JMeter</span>
+          <span class="skill-tag">Sentry</span>
+        </div>
+      </div>
+      <div class="skill-category reveal">
+        <div class="skill-cat-icon">📝</div>
+        <div class="skill-cat-title">Documentation</div>
+        <div class="skill-tags">
+          <span class="skill-tag gold">Test Strategy</span>
+          <span class="skill-tag gold">Test Design</span>
+          <span class="skill-tag">Defect Reports</span>
+          <span class="skill-tag">Test Summary Reports</span>
+          <span class="skill-tag">Status Reports</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-tag">Career Journey</span>
+      <h2 class="section-title">Work <span class="accent">Experience</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div class="timeline-role">Lead Automation Engineer</div>
+          <div class="timeline-company">Adhish Technology Pvt. Limited</div>
+          <div class="timeline-project">Project: Twine</div>
+          <div class="timeline-period">March 2021 – April 2022</div>
+        </div>
+        <p class="timeline-desc">Twine is a networking and connection tool for remote teams, enabling meaningful conversations that break down silos and foster stronger relationships at virtual events.</p>
+        <ul class="timeline-responsibilities">
+          <li>Understanding business requirements, preparing test scenarios, test data &amp; test cases.</li>
+          <li>Development of Page Object Model Framework for Automation Testing.</li>
+          <li>Prepared Test Execution reports, results analysis and defect reporting.</li>
+          <li>Regression Testing using Selenium; API Testing using Postman.</li>
+        </ul>
+        <div class="timeline-tools"><strong>Tools:</strong> ASP.Net 4.5, C#, WCF, LINQ, Selenium, SoapUI, Postman, JIRA, BrowserStack, Sentry</div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div class="timeline-role">Lead Test Engineer</div>
+          <div class="timeline-company">UST Global, Trivandrum</div>
+          <div class="timeline-project">Project: Experian Consumer Service (UK)</div>
+          <div class="timeline-period">May 2018 – August 2020</div>
+        </div>
+        <p class="timeline-desc">Experian is a multinational consumer credit reporting company. The ECS platform provides multiple web applications for customers to access credit reports and identity protection services.</p>
+        <ul class="timeline-responsibilities">
+          <li>Led test execution, results analysis and defect reporting end-to-end.</li>
+          <li>Created automation infrastructure using Selenium with regression test coverage for every new build.</li>
+          <li>Development of Page Object Model Framework; Data Driven, Cross Browser and API Testing.</li>
+          <li>Coordinated with development team and prepared weekly &amp; monthly status reports.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div class="timeline-role">Senior Test Engineer</div>
+          <div class="timeline-company">UST Global</div>
+          <div class="timeline-project">Project: HRBLOCK.COM (USA)</div>
+          <div class="timeline-period">August 2014 – April 2018</div>
+        </div>
+        <p class="timeline-desc">H&amp;R Block's corporate website serves as the main hub for ecommerce and online tax services, receiving millions of visits daily and consuming/providing services to enterprise applications.</p>
+        <ul class="timeline-responsibilities">
+          <li>Developed and executed functional/system test cases against design specifications.</li>
+          <li>Identified, analyzed and documented defects and functional concerns.</li>
+          <li>Developed automation scripts for functional and regression testing scenarios.</li>
+          <li>Reported and tracked defects in HP ALM; delivered weekly client status reports.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div class="timeline-role">Senior Test Engineer</div>
+          <div class="timeline-company">Previous Role</div>
+          <div class="timeline-project">Project: Export Documentation – Maersk, Denmark</div>
+          <div class="timeline-period">April 2013 – July 2014</div>
+        </div>
+        <p class="timeline-desc">Export Documentation is a business process application for verifying all documentation before real shipment occurs, spanning Indexing, SI Chasing, Customer Update, Manifesting, and Issuance.</p>
+        <ul class="timeline-responsibilities">
+          <li>Preparation of test cases for SIT and FT; test data for end-to-end activities.</li>
+          <li>Performed sanity testing for new releases and service testing using SOAP UI Pro.</li>
+          <li>Tracked and reported defects in QC 10.0; tested GUI across multiple browsers.</li>
+        </ul>
+        <div class="timeline-tools"><strong>Tools:</strong> .NET Framework 4.2, C#, ASP.NET, Web API, SQL Server 2012, HP ALM</div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div class="timeline-role">Test Engineer</div>
+          <div class="timeline-company">Aivea Software, Bangalore</div>
+          <div class="timeline-project">Project: Aivea® Commerce Server (ACS) &amp; eShip Shipping Manager</div>
+          <div class="timeline-period">Earlier Role</div>
+        </div>
+        <p class="timeline-desc">SOA-based e-commerce software solution for enterprise clients including printerland.co.uk, glasses.com, and borsheims.com. Also worked on the Aivea® eShip web-based shipping management platform.</p>
+        <ul class="timeline-responsibilities">
+          <li>Test planning, test case design and maintenance across multiple modules.</li>
+          <li>Functional, Regression, Integration and System Testing across browsers.</li>
+          <li>Reviewed technical artifacts (SRS, DFD); reported and tracked bugs in TFS.</li>
+          <li>Interacted closely with developers for defect resolution.</li>
+        </ul>
+        <div class="timeline-tools"><strong>Tools:</strong> ASP.Net 3.5, C#, WCF, LINQ, TFS 2008, SQL Server 2008, JMeter</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-tag">Key Projects</span>
+      <h2 class="section-title">Project <span class="accent">Portfolio</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card reveal">
+        <div class="portfolio-number">01</div>
+        <div class="portfolio-title">Experian Consumer Service</div>
+        <div class="portfolio-client">Experian — United Kingdom</div>
+        <p class="portfolio-desc">Led QA for a multinational credit reporting platform serving UK consumers. Built and maintained automation infrastructure with Selenium and conducted full regression coverage for each release cycle.</p>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-number">02</div>
+        <div class="portfolio-title">H&amp;R Block Website</div>
+        <div class="portfolio-client">H&amp;R Block — United States</div>
+        <p class="portfolio-desc">Senior QA on the tax preparation company's high-traffic ecommerce portal. Delivered automation scripts, managed defects in HP ALM and produced regular client-facing status reports.</p>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-number">03</div>
+        <div class="portfolio-title">Twine Platform</div>
+        <div class="portfolio-client">Adhish Technology</div>
+        <p class="portfolio-desc">Established a complete POM automation framework from scratch for the Twine remote-team networking platform. Drove API test coverage using Postman and ensured quality across all browser environments via BrowserStack.</p>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-number">04</div>
+        <div class="portfolio-title">Export Documentation</div>
+        <div class="portfolio-client">Maersk — Denmark</div>
+        <p class="portfolio-desc">Quality assurance for Maersk's shipment documentation and process validation system. Covered end-to-end SIT and FT, services testing via SOAP UI, and complete defect life-cycle management.</p>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-number">05</div>
+        <div class="portfolio-title">Aivea Commerce Server</div>
+        <div class="portfolio-client">Aivea Software — Multiple Clients</div>
+        <p class="portfolio-desc">Tested a comprehensive SOA-based enterprise e-commerce platform for UK and US retail brands. Responsible for test planning across all modules, cross-browser validation and defect management in TFS.</p>
+      </div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-number">06</div>
+        <div class="portfolio-title">eShip Shipping Manager</div>
+        <div class="portfolio-client">Aivea Software</div>
+        <p class="portfolio-desc">Web-based enterprise shipping management solution enabling centralised management of shipping activities across multiple carriers and corporate sites — tested for functional integrity and performance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-tag">Academic Background</span>
+      <h2 class="section-title">Education &amp; <span class="accent">Certifications</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+      <div>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; margin-bottom:1.5rem; color:var(--gold);">Academic Degrees</h3>
+        <div class="edu-grid" style="grid-template-columns:1fr;">
+          <div class="edu-card reveal">
+            <div class="edu-year">2003</div>
+            <div class="edu-degree">Master of Science in Computer Science &amp; Information Technology</div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-year">2000</div>
+            <div class="edu-degree">Bachelor of Computer Application</div>
+          </div>
+          <div class="edu-card reveal">
+            <div class="edu-year">1995</div>
+            <div class="edu-degree">Diploma in Mechanical Engineering</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; margin-bottom:1.5rem; color:var(--gold);">Certifications &amp; Memberships</h3>
+        <div class="cert-list">
+          <div class="cert-item reveal">
+            <span class="cert-icon">🏆</span>
+            <div>
+              <div class="cert-name">Advanced Test Analyst — Software Testing</div>
+              <div class="cert-org">ISTQB India</div>
+            </div>
+          </div>
+          <div class="cert-item reveal">
+            <span class="cert-icon">🎖️</span>
+            <div>
+              <div class="cert-name">Certified Software Test Engineer</div>
+              <div class="cert-org">QAI India</div>
+            </div>
+          </div>
+          <div class="cert-item reveal">
+            <span class="cert-icon">🌐</span>
+            <div>
+              <div class="cert-name">Member — APICS</div>
+              <div class="cert-org">American Production and Inventory Control Society</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-tag">Let's Connect</span>
+      <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>I'm open to new opportunities, collaborations and conversations about QA, automation, and software quality. Feel free to reach out via email or phone.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon-wrap">📧</div>
+            <div>
+              <div class="contact-detail-label">Email</div>
+              <div class="contact-detail-value"><a href="mailto:shankarsqM@gmail.com">shankarsqM@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon-wrap">📞</div>
+            <div>
+              <div class="contact-detail-label">Phone</div>
+              <div class="contact-detail-value"><a href="tel:+919791384762">+91 97913 84762</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon-wrap">💼</div>
+            <div>
+              <div class="contact-detail-label">Specialisation</div>
+              <div class="contact-detail-value">QA Automation · API Testing · ERP &amp; eCommerce</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="background:rgba(255,255,255,0.02); border:1px solid rgba(201,168,76,0.12); padding:2.5rem;">
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:0.5rem;">Open to Opportunities</h3>
+        <p style="color:var(--gray); font-size:0.9rem; margin-bottom:2rem;">Currently available for senior QA / Lead Automation Engineer roles.</p>
+        <div style="display:flex; flex-direction:column; gap:0.8rem;">
+          <div style="display:flex; align-items:center; gap:0.8rem; font-size:0.88rem; color:rgba(244,241,235,0.7);">
+            <span style="color:var(--gold);">✓</span> 12+ years cross-domain QA experience
+          </div>
+          <div style="display:flex; align-items:center; gap:0.8rem; font-size:0.88rem; color:rgba(244,241,235,0.7);">
+            <span style="color:var(--gold);">✓</span> Proven record with global clients (UK, USA, Denmark)
+          </div>
+          <div style="display:flex; align-items:center; gap:0.8rem; font-size:0.88rem; color:rgba(244,241,235,0.7);">
+            <span style="color:var(--gold);">✓</span> ISTQB &amp; QAI certified test professional
+          </div>
+          <div style="display:flex; align-items:center; gap:0.8rem; font-size:0.88rem; color:rgba(244,241,235,0.7);">
+            <span style="color:var(--gold);">✓</span> Selenium, Postman, JIRA, HP ALM expertise
+          </div>
+        </div>
+        <a href="mailto:shankarsqM@gmail.com" class="btn btn-primary" style="display:inline-block; margin-top:2rem;">Send a Message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 <span>R. Shankarnarayanan</span> · QA Engineer · All Rights Reserved</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
